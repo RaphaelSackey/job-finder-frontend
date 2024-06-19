@@ -1,15 +1,11 @@
-import Login_signup from "../login-singup/login_signup"
-import Navbar from "../../components/navbar/navbar"
+import Login_signup from "../login-singup/login_signup";
 
-export default function Home(){
-    return(
 
-        <>
-           <Navbar />
-            <div>Home Page</div>
-            <Login_signup />
-
-        </>
-
-    )
+export default function Home() {
+  return (
+    <div className="container mx-auto">
+      <div>Home Page</div>
+      <Login_signup />
+    </div>
+  );
 }
