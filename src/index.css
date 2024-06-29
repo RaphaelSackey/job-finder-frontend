@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap');
+
+@layer base {
+  body {
+    @apply bg-customSeaSalt font-roboto;
+
+  }
+  *,
+  *::before,
+  *::after {
+    @apply p-0 m-0;
+    box-sizing: border-box;
+  }
+}
+
+
+@layer components{}
+
+@layer utilities{
+    .line{
+        @apply h-[.1px] bg-gray-400
+    }
+    .formInputText{
+        @apply border rounded-lg border-customRenchGray h-12 bg-transparent mb-5 text-customDark pl-2
+    }
+}
+

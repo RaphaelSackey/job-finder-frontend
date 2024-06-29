@@ -10,18 +10,42 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
-  const [dropDown, setDropdown] = React.useState({
+  const [dropDown, setDropdown] = useState({
     jobType: {
-      isActive: true,
-      value: '',
+      isActive: false,
+      value: "",
     },
-    location: {},
-    pay: {},
+    location: {
+      isActive: false,
+      value: "",
+    },
+    pay: {
+      isActive: false,
+      value: "",
+    },
   });
+
+  const [searchBar, setSearchBar] = useState("");
+
+  function trackSearch(event) {
+    const value = event.currentTarget.value;
+    setSearchBar(value);
+  }
+
+  function makeJobSearch(event) {
+    event.preventDefault();
+    const searchQuery = {
+      query: searchBar,
+      jobType: dropDown.jobType.value,
+      location: dropDown.location.value,
+      pay: dropDown.pay.value,
+    };
+    console.log(searchQuery);
+  }
 
   function activateDropdown(event) {
     event.stopPropagation();
-    const id = event.currentTarget.id; 
+    const id = event.currentTarget.id;
     const index = id.indexOf("-");
     if (index === -1) {
       console.error("Invalid ID format, expected a hyphen.");
@@ -41,8 +65,8 @@ function Navbar() {
     }));
   }
 
-  function dropdownOptionSelected(event){
-    event.stopPropagation()
+  function dropdownOptionSelected(event) {
+    event.stopPropagation();
     const className = event.currentTarget.className;
     const index = className.indexOf("-");
     if (index === -1) {
@@ -51,28 +75,30 @@ function Navbar() {
     }
     const name = className.slice(index + 1);
     const attribute = event.target.getAttribute("data-value");
-    setDropdown(prev => (
-      {...prev,
-        [name]:{
-          ...prev[name],
-          value: attribute
-        }
-      }
-    ))
-
+    setDropdown((prev) => ({
+      ...prev,
+      [name]: {
+        ...prev[name],
+        value: attribute,
+      },
+    }));
   }
 
   return (
-    <div className="bg-black h-fit">
+    <div className="bg-customDark h-fit">
       {/* navbar wrapper */}
-      <div className="flex container mx-auto items-center py-4 justify-between  text-white ">
+      <div className="text-customWhite container mx-auto flex items-center justify-between py-4">
         {/* site logo */}
         <div className="flex items-center justify-center gap-2">
-          <img className="w-auto h-16" src="./assets/logo-image/logo.png"></img>
+          <img
+            className="h-16 w-auto"
+            src="./assets/logo-image/logo.png"
+            alt="website logo"
+          ></img>
           FanJobz
         </div>
         {/* page navigation links*/}
-        <ul className="flex flex-grow justify-center items-center gap-4">
+        <ul className="flex flex-grow items-center justify-center gap-4">
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "underline" : undefined)}
@@ -92,26 +118,33 @@ function Navbar() {
         </ul>
         {/* buttons */}
         <div className="flex gap-2">
-          <button className="py-2 px-8 bg-blue-200 rounded">Post A Job</button>
-          <button className="py-2 px-8 bg-red-400 rounded">Sign In</button>
+          <button className="h-11 w-36 rounded bg-blue-200">Post A Job</button>
+          <button className="h-11 w-24 rounded bg-red-400">
+            <Link
+              to="loginSignup"
+              className="flex h-full w-full items-center justify-center"
+            >
+              sign In
+            </Link>
+          </button>
         </div>
       </div>
       {/* navbar divider */}
-      <div className=" bg-gray-400 h-[.1px]"></div>
+      <div className="line"></div>
       {/* bottom navbar gird */}
-      <div className="container mx-auto grid grid-cols-custom gap-4 py-9">
+      <div className="grid-cols-custom container mx-auto grid gap-4 py-9">
         {/* selection 1 */}
-        <div className=" option-container relative h-16 flex items-center border-r border-r-1 border-gray-400 text-white justify-between">
-          <div className="inner-container w-full flex items-center gap-2">
+        <div className="option-container border-r-1 relative flex h-16 items-center justify-between border-r border-gray-400 text-white">
+          <div className="inner-container flex w-full items-center gap-2">
             {/* prefix icon */}
-            <div className="border rounded-full flex items-center justify-center p-1.5 border-gray-400">
+            <div className="flex items-center justify-center rounded-full border border-gray-400 p-1.5">
               <FontAwesomeIcon
                 icon={faBriefcase}
                 className="h-5 w-5 text-white"
               />
             </div>
             <span className="block grow">
-              {dropDown.jobType.value == ""
+              {dropDown.jobType.value === ""
                 ? "Job Type"
                 : dropDown.jobType.value}
             </span>
@@ -125,7 +158,7 @@ function Navbar() {
             </div>
           </div>
           {dropDown.jobType.isActive && (
-            <div className="dropdown-menu absolute top-16 w-full h-fit bg-blue-700 py-2 px-1 flex-col justify-center ">
+            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
               <div
                 className={
                   dropDown["jobType"].value !== "Designer"
@@ -163,37 +196,143 @@ function Navbar() {
           )}
         </div>
         {/* selection 2 */}
-        <div className=" h-16 flex items-center gap-2  border-r border-r-1 border-gray-400 text-white justify-between">
-          <div className="border rounded-full flex items-center justify-center p-1.5 border-gray-400">
-            <FontAwesomeIcon
-              icon={faLocationDot}
-              className="h-5 w-5 text-white"
-            />
+        <div className="option-container border-r-1 relative flex h-16 items-center justify-between border-r border-gray-400 text-white">
+          <div className="inner-container flex w-full items-center gap-2">
+            {/* prefix icon */}
+            <div className="flex items-center justify-center rounded-full border border-gray-400 p-1.5">
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="h-5 w-5 text-white"
+              />
+            </div>
+            <span className="block grow">
+              {dropDown.location.value === ""
+                ? "Location"
+                : dropDown.location.value}
+            </span>
+            {/* postfix icon */}
+            <div
+              className="postfix-wrapper mr-3"
+              id="arrowDown-location"
+              onClick={(e) => activateDropdown(e)}
+            >
+              <FontAwesomeIcon icon={faCaretDown} />
+            </div>
           </div>
-          <span className="block grow">Work Location</span>
-          <FontAwesomeIcon icon={faCaretDown} className="pr-3" />
+          {dropDown.location.isActive && (
+            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
+              <div
+                className={
+                  dropDown["location"].value !== "New York"
+                    ? "options-location"
+                    : "options-location bg-red-800"
+                }
+                data-value="New York"
+                onClick={dropdownOptionSelected}
+              >
+                New York
+              </div>
+              <div
+                className={
+                  dropDown["location"].value !== "Arizona"
+                    ? "options-location"
+                    : "options-location bg-red-800"
+                }
+                data-value="Arizona"
+                onClick={dropdownOptionSelected}
+              >
+                Arizona
+              </div>
+              <div
+                className={
+                  dropDown["location"].value !== "New Jersey"
+                    ? "options-location"
+                    : "options-location bg-red-800"
+                }
+                data-value="New Jersey"
+                onClick={dropdownOptionSelected}
+              >
+                New Jersey
+              </div>
+            </div>
+          )}
         </div>
         {/* selection 3 */}
-        <div className=" h-16 flex items-center gap-2  border-r border-r-1 border-gray-400 text-white justify-between">
-          <div className="border rounded-full flex items-center justify-center p-1.5 border-gray-400">
-            <FontAwesomeIcon
-              icon={faMoneyBill}
-              className="h-5 w-5 text-white"
-            />
+        <div className="option-container border-r-1 relative flex h-16 items-center justify-between border-r border-gray-400 text-white">
+          <div className="inner-container flex w-full items-center gap-2">
+            {/* prefix icon */}
+            <div className="flex items-center justify-center rounded-full border border-gray-400 p-1.5">
+              <FontAwesomeIcon
+                icon={faMoneyBill}
+                className="h-5 w-5 text-white"
+              />
+            </div>
+            <span className="block grow">
+              {dropDown.pay.value === "" ? "Pay" : dropDown.pay.value}
+            </span>
+            {/* postfix icon */}
+            <div
+              className="postfix-wrapper mr-3"
+              id="arrowDown-pay"
+              onClick={(e) => activateDropdown(e)}
+            >
+              <FontAwesomeIcon icon={faCaretDown} />
+            </div>
           </div>
-          <span className="block grow">Pay</span>
-          <FontAwesomeIcon icon={faCaretDown} className="pr-3" />
+          {dropDown.pay.isActive && (
+            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
+              <div
+                className={
+                  dropDown["pay"].value !== "$13-16/hr"
+                    ? "options-pay"
+                    : "options-pay bg-red-800"
+                }
+                data-value="$13-16/hr"
+                onClick={dropdownOptionSelected}
+              >
+                $13-16 /hr
+              </div>
+              <div
+                className={
+                  dropDown["pay"].value !== "$17-20/hr"
+                    ? "options-pay"
+                    : "options-pay bg-red-800"
+                }
+                data-value="$17-20/hr"
+                onClick={dropdownOptionSelected}
+              >
+                $17-20 /hr
+              </div>
+              <div
+                className={
+                  dropDown["pay"].value !== "$21+ /hr"
+                    ? "options-pay"
+                    : "options-pay bg-red-800"
+                }
+                data-value="$21+ /hr"
+                onClick={dropdownOptionSelected}
+              >
+                $21+ /hr
+              </div>
+            </div>
+          )}
         </div>
-        {/* selection 4 */}
-        <div className=" h-16 flex items-center gap-2   text-white justify-between">
-          <div className="border rounded-full flex items-center justify-center p-1.5 border-gray-400">
+
+        {/* Search Bar */}
+        <div className="flex h-16 items-center justify-between gap-2 text-white">
+          <div className="flex items-center justify-center rounded-full border border-gray-400 p-1.5">
             <FontAwesomeIcon icon={faSearch} className="h-5 w-5 text-white" />
           </div>
-          <input
-            type="text"
-            className="grow pl-2 rounded-r h-7 text-black"
-            placeholder="Search"
-          ></input>
+          <form onSubmit={makeJobSearch} className="grow">
+            <input
+              type="text"
+              className="h-7 w-full rounded-r pl-2 text-black"
+              placeholder="Search Job"
+              value={searchBar}
+              onChange={trackSearch}
+            ></input>
+            <input type="submit" hidden></input>
+          </form>
         </div>
       </div>
     </div>
