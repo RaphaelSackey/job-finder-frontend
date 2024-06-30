@@ -2,6 +2,8 @@ import React, { useState, useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Axios from "../../api/axios";
+
 
 export default function LoginSignup() {
   const [version, setVersion] = useState("logIn");
@@ -63,8 +65,20 @@ export default function LoginSignup() {
       return
     }
     
-    console.log(formCredentials[version]);
+    signIn();
   }
+
+  async function signIn(){
+    const axios = Axios()
+    try{
+      const results = await axios.post("/SignUp", {data: 'yo'});
+      console.log(results);
+
+    }catch(e){
+      // console.log(e)
+    }
+  }
+  
 
   return (
     <div className="sign-in h-screen">
