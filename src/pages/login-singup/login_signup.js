@@ -4,7 +4,6 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Axios from "../../api/axios";
 
-
 export default function LoginSignup() {
   const [version, setVersion] = useState("logIn");
 
@@ -58,27 +57,56 @@ export default function LoginSignup() {
   function handleSubmit(event) {
     event.preventDefault();
     const hasEmptyValue = Object.values(formCredentials[version]).some(
-      value => value === "",
+      (value) => value === "",
     );
-    if (hasEmptyValue){
-      alert('Please fill out all fields')
-      return
+    if (hasEmptyValue) {
+      alert("Please fill out all fields");
+      return;
+    }
+
+    if (version === "logIn") {
+      logIn();
+    } else {
+      signUp();
+    }
+  }
+
+  async function logIn() {
+    const axios = Axios();
+    try {
+      const results = await axios.post("/logIn", {
+        ...formCredentials["logIn"],
+      });
+      console.log(results);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function signUp() {
+    function checkPasswordMatch() {
+      const password_entered = formCredentials.signUp.password;
+      const password_entered_confirm = formCredentials.signUp.confirmPassword;
+      if (password_entered !== password_entered_confirm) {
+        return false;
+      }
+      return true;
     }
     
-    signIn();
-  }
-
-  async function signIn(){
-    const axios = Axios()
-    try{
-      const results = await axios.post("/SignUp", {data: 'yo'});
-      console.log(results);
-
-    }catch(e){
-      // console.log(e)
+    if (checkPasswordMatch()) {
+      try {
+        const axios = Axios();
+        const results = await axios.post("/SignUp", {
+          ...formCredentials["signUp"],
+        });
+        console.log(results);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert("Passwords must match");
     }
   }
-  
 
   return (
     <div className="sign-in h-screen">
