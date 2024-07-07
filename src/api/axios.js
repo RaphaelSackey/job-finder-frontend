@@ -8,5 +8,6 @@ export default function Axios(){
       },
       withCredentials: true,
     });
+
     return axiosInstance
 }

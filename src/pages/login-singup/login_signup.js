@@ -77,6 +77,8 @@ export default function LoginSignup() {
       const results = await axios.post("/logIn", {
         ...formCredentials["logIn"],
       });
+      localStorage.setItem('access_token', results.data.access_token)
+      localStorage.setItem('refresh_token', results.data.refresh_token)
       console.log(results);
     } catch (e) {
       console.log(e);
@@ -108,6 +110,34 @@ export default function LoginSignup() {
     }
   }
 
+  async function dummyProtected(){
+    try{
+      const access_token = localStorage.getItem('access_token')
+      const axios = Axios()
+      const results = await axios.post('/protected', {data: 'some data'}, {headers: {Authorization: `Bearer ${access_token}` }})
+      console.log(results.data)
+
+    }catch(e){
+      refreshToken()
+    }
+  }
+
+  async function refreshToken(){
+    const refresh_token = localStorage.getItem('refresh_token')
+    const axios = Axios()
+
+    try{
+      const response =  await axios.post('/refreshToken',{}, {headers: {Authorization: `Bearer ${refresh_token}`}})
+      const new_access_token = response.data.access_token; 
+      localStorage.setItem("access_token", new_access_token);
+      dummyProtected();
+    }catch (e) {
+    }finally{
+      console.clear()
+    }
+    
+  }
+
   return (
     <div className="sign-in h-screen">
       <div className="signInSignup-navbar border-customRenchGray relative flex h-[10%] items-center justify-start border-b px-3 lg:px-6">
@@ -123,6 +153,7 @@ export default function LoginSignup() {
           <h1 className="text-customDark font-poppinsBold mb-3 text-2xl">
             {version === "logIn" ? "Log in" : "Sign up"}
           </h1>
+          <button className="bg-blue-300 w-fit" onClick={dummyProtected}>dummy</button>
           <form className="flex flex-col">
             {version === "signUp" && (
               <>
