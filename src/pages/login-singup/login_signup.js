@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Axios from "../../api/axios";
+import useAxios from "../../CustomHooks/useAxios";
 
 export default function LoginSignup() {
   const [version, setVersion] = useState("logIn");
-
   const [formCredentials, dispatch] = useReducer(reducer, {
     logIn: {
       email: "",
@@ -110,33 +110,37 @@ export default function LoginSignup() {
     }
   }
 
-  async function dummyProtected(){
-    try{
-      const access_token = localStorage.getItem('access_token')
-      const axios = Axios()
-      const results = await axios.post('/protected', {data: 'some data'}, {headers: {Authorization: `Bearer ${access_token}` }})
-      console.log(results.data)
-
-    }catch(e){
-      refreshToken()
-    }
+  async function DummyProtected(){
+    const data = await useAxios("/protected", { data: "some data" });
+    console.log(data)
   }
+  // async function dummyProtected(){
+  //   try{
+  //     const access_token = localStorage.getItem('access_token')
+  //     const axios = Axios()
+  //     const results = await axios.post('/protected', {data: 'some data'}, {headers: {Authorization: `Bearer ${access_token}` }})
+  //     console.log(results.data)
 
-  async function refreshToken(){
-    const refresh_token = localStorage.getItem('refresh_token')
-    const axios = Axios()
+  //   }catch(e){
+  //     refreshToken()
+  //   }
+  // }
 
-    try{
-      const response =  await axios.post('/refreshToken',{}, {headers: {Authorization: `Bearer ${refresh_token}`}})
-      const new_access_token = response.data.access_token; 
-      localStorage.setItem("access_token", new_access_token);
-      dummyProtected();
-    }catch (e) {
-    }finally{
-      console.clear()
-    }
+  // async function refreshToken(){
+  //   const refresh_token = localStorage.getItem('refresh_token')
+  //   const axios = Axios()
+
+  //   try{
+  //     const response =  await axios.post('/refreshToken',{}, {headers: {Authorization: `Bearer ${refresh_token}`}})
+  //     const new_access_token = response.data.access_token; 
+  //     localStorage.setItem("access_token", new_access_token);
+  //     dummyProtected();
+  //   }catch (e) {
+  //   }finally{
+  //     console.clear()
+  //   }
     
-  }
+  // }
 
   return (
     <div className="sign-in h-screen">
@@ -153,7 +157,7 @@ export default function LoginSignup() {
           <h1 className="text-customDark font-poppinsBold mb-3 text-2xl">
             {version === "logIn" ? "Log in" : "Sign up"}
           </h1>
-          <button className="bg-blue-300 w-fit" onClick={dummyProtected}>dummy</button>
+          <button className="bg-blue-300 w-fit" onClick={DummyProtected}>dummy</button>
           <form className="flex flex-col">
             {version === "signUp" && (
               <>
