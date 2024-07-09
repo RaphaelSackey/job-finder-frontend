@@ -118,7 +118,14 @@ function Navbar() {
         </ul>
         {/* buttons */}
         <div className="flex gap-2">
-          <button className="h-11 w-36 rounded bg-blue-200">Post A Job</button>
+          <button className="h-11 w-36 rounded bg-blue-200">
+            <Link
+              className="flex h-full w-full items-center justify-center"
+              to="/postJob"
+            >
+              Post A Job
+            </Link>
+          </button>
           <button className="h-11 w-24 rounded bg-red-400">
             <Link
               to="loginSignup"

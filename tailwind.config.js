@@ -8,14 +8,14 @@ module.exports = {
       },
       colors: {
         customDark: "#141413ff",
-        customSeaSalt: "#F9F9F9ff",
+        customSeaSalt: "#f0f0f0",
         customChampagnePink: "#FFE1CBff",
         customMintGreen: "#D4F6ECff",
         customAntiflashWhite: "#EBEFF3ff",
         customPalePurple: "#FBE2F4ff",
         customAliceBlue: "#DFF2FEff",
         customRenchGray: "#B5B7BBff",
-        customWhite: "#FFFFFFff",
+        customWhite: "#ffffff",
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
