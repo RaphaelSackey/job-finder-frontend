@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Axios from "../../api/axios";
+import useAxios from "../../CustomHooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
-export default function PostJob() {
+
+export default function PostJobPage() {
+  let navigate = useNavigate();
   const [jobForm, setJobForm] = useState({
     jobType: "General",
     jobName: "",
@@ -13,7 +16,6 @@ export default function PostJob() {
   });
 
   function updateForm(event) {
-    console.log("state is changing");
     const name = event.target.name;
     const value = event.target.value;
 
@@ -30,27 +32,19 @@ export default function PostJob() {
       alert("Please fill out all the information");
       return;
     }
-    console.log(hasEmptyValue);
-    console.log(jobForm);
+    PostJob()
   }
 
-  async function postJob() {
-    const axios = Axios;
-    try{
-    const response = axios.post(
-      "/postjob",
-      { ...jobForm },
-      {
-        Headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      },
-    );
-    }catch (e){
-        console.log(e)
+  async function PostJob() {
+    const response = await useAxios("/postjob",{...jobForm} )
+    if(!response){
+      alert('You have to be singed in to be able to post a job')
+      navigate("/loginSignup");
+       return
     }
-
+    console.log(response)
   }
+
   return (
     <div className="post-job h-screen">
       <div className="signInSignup-navbar border-customDark relative flex h-[10%] items-center justify-center border-b px-3 lg:px-6">
