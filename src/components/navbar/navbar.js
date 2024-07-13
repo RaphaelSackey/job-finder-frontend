@@ -157,7 +157,7 @@ function Navbar() {
             </span>
             {/* postfix icon */}
             <div
-              className="postfix-wrapper mr-3"
+              className="postfix-wrapper mr-3 hover:cursor-pointer"
               id="arrowDown-jobType"
               onClick={(e) => activateDropdown(e)}
             >
@@ -165,12 +165,12 @@ function Navbar() {
             </div>
           </div>
           {dropDown.jobType.isActive && (
-            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
+            <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
                   dropDown["jobType"].value !== "Designer"
                     ? "options-jobType"
-                    : "options-jobType bg-red-800"
+                    : "options-jobType bg-customRenchGray"
                 }
                 data-value="Designer"
                 onClick={dropdownOptionSelected}
@@ -181,7 +181,7 @@ function Navbar() {
                 className={
                   dropDown["jobType"].value !== "Errand"
                     ? "options-jobType"
-                    : "options-jobType bg-red-800"
+                    : "options-jobType bg-customRenchGray"
                 }
                 data-value="Errand"
                 onClick={dropdownOptionSelected}
@@ -192,7 +192,7 @@ function Navbar() {
                 className={
                   dropDown["jobType"].value !== "Dog Sitting"
                     ? "options-jobType"
-                    : "options-jobType bg-red-800"
+                    : "options-jobType bg-customRenchGray"
                 }
                 data-value="Dog Sitting"
                 onClick={dropdownOptionSelected}
@@ -219,7 +219,7 @@ function Navbar() {
             </span>
             {/* postfix icon */}
             <div
-              className="postfix-wrapper mr-3"
+              className="postfix-wrapper mr-3 hover:cursor-pointer"
               id="arrowDown-location"
               onClick={(e) => activateDropdown(e)}
             >
@@ -227,12 +227,12 @@ function Navbar() {
             </div>
           </div>
           {dropDown.location.isActive && (
-            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
+            <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
                   dropDown["location"].value !== "New York"
                     ? "options-location"
-                    : "options-location bg-red-800"
+                    : "options-location bg-customRenchGray"
                 }
                 data-value="New York"
                 onClick={dropdownOptionSelected}
@@ -243,7 +243,7 @@ function Navbar() {
                 className={
                   dropDown["location"].value !== "Arizona"
                     ? "options-location"
-                    : "options-location bg-red-800"
+                    : "options-location bg-customRenchGray"
                 }
                 data-value="Arizona"
                 onClick={dropdownOptionSelected}
@@ -254,7 +254,7 @@ function Navbar() {
                 className={
                   dropDown["location"].value !== "New Jersey"
                     ? "options-location"
-                    : "options-location bg-red-800"
+                    : "options-location bg-customRenchGray"
                 }
                 data-value="New Jersey"
                 onClick={dropdownOptionSelected}
@@ -279,7 +279,7 @@ function Navbar() {
             </span>
             {/* postfix icon */}
             <div
-              className="postfix-wrapper mr-3"
+              className="postfix-wrapper mr-3 hover:cursor-pointer"
               id="arrowDown-pay"
               onClick={(e) => activateDropdown(e)}
             >
@@ -287,12 +287,12 @@ function Navbar() {
             </div>
           </div>
           {dropDown.pay.isActive && (
-            <div className="dropdown-menu absolute top-16 h-fit w-full flex-col justify-center bg-blue-700 px-1 py-2">
+            <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
                   dropDown["pay"].value !== "$13-16/hr"
                     ? "options-pay"
-                    : "options-pay bg-red-800"
+                    : "options-pay bg-customRenchGray"
                 }
                 data-value="$13-16/hr"
                 onClick={dropdownOptionSelected}
@@ -303,7 +303,7 @@ function Navbar() {
                 className={
                   dropDown["pay"].value !== "$17-20/hr"
                     ? "options-pay"
-                    : "options-pay bg-red-800"
+                    : "options-pay bg-customRenchGray"
                 }
                 data-value="$17-20/hr"
                 onClick={dropdownOptionSelected}
@@ -314,7 +314,7 @@ function Navbar() {
                 className={
                   dropDown["pay"].value !== "$21+ /hr"
                     ? "options-pay"
-                    : "options-pay bg-red-800"
+                    : "options-pay bg-customRenchGray"
                 }
                 data-value="$21+ /hr"
                 onClick={dropdownOptionSelected}

@@ -1,9 +1,16 @@
+import { useState,useEffect } from "react";
 import Card from "../../components/card/card";
+import useAxios from "../../CustomHooks/useAxios";
+import { useDropdownContext } from "../../CustomHooks/navContext";
 
 export default function Home() {
+  const dropdown = useDropdownContext();
+
+  console.log(dropdown)
+
   return (
     <div className="container mx-auto min-h-screen">
-      <div className="container relative mx-auto flex max-h-[100vh] min-h-[100vh] w-full gap-28 overflow-scroll pt-6">
+      <div className="container relative mx-auto flex max-h-[100vh] h-[100vh] min-h-[100vh] w-full gap-28 overflow-scroll pt-6">
         <div className="job_wrapper border-customRenchGray flex h-[100%] min-h-[100%] w-[50%] justify-center overflow-scroll rounded-lg border pt-3">
           <div className="card-holder flex min-h-full w-[100%] flex-wrap justify-center px-2 xl:justify-between 2xl:w-[80%] 2xl:px-0">
             <Card />
