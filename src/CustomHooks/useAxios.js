@@ -1,6 +1,7 @@
 import Axios from "../api/axios";
 
 export default async function useAxios(request_path, request_data){
+    let refreshTried = false
     // console.log('in custom hook')
     let final_result;
     if(request_path && request_data){
@@ -9,6 +10,7 @@ export default async function useAxios(request_path, request_data){
 
     async function MakeRequest(){
             // console.log("making a request");
+            let refreshSuccess;
             try {
               const access_token = localStorage.getItem("access_token");
               const axios = Axios();
@@ -16,10 +18,16 @@ export default async function useAxios(request_path, request_data){
                 headers: { Authorization: `Bearer ${access_token}` },
               });
             //   console.log('retuning data')
-              return results.data;
+              return results;
             } catch (e) {
                 // console.log('i have to refresh token, access token expired ')
-              const refreshSuccess = await RefreshToken()
+                if(!refreshTried){
+                    refreshSuccess = await RefreshToken();
+                    refreshTried = true
+                }else{
+                    refreshSuccess = false
+                }
+              
             //   console.log("done waiting for refreshToken");
               if (refreshSuccess){
                 // console.log('making new request with new access token')

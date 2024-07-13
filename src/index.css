@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap');
 
+
 @layer base {
   body {
     @apply bg-customSeaSalt font-roboto;

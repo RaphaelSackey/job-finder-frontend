@@ -42,6 +42,16 @@ export default function PostJobPage() {
       navigate("/loginSignup");
        return
     }
+    if(response.status === 200){
+      alert('Job successfully posted')
+      setJobForm({
+        jobType: "General",
+        jobName: "",
+        Pay: "13-16",
+        description: "",
+      });
+
+    }
     console.log(response)
   }
 
