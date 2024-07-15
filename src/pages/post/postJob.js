@@ -12,6 +12,7 @@ export default function PostJobPage() {
     jobType: "General",
     jobName: "",
     Pay: "13-16",
+    location: 'New York, NY',
     description: "",
   });
 
@@ -49,6 +50,7 @@ export default function PostJobPage() {
         jobName: "",
         Pay: "13-16",
         description: "",
+        location: "New York, NY"
       });
 
     }
@@ -109,6 +111,20 @@ export default function PostJobPage() {
               onChange={updateForm}
               value={jobForm.jobName}
             ></input>
+            <label htmlFor="Pay" className="pt-4">
+              Location
+            </label>
+            <select
+              id="location"
+              name="location"
+              className="border-customRenchGray h-12 rounded border"
+              onChange={updateForm}
+              value={jobForm.location}
+            >
+              <option value="New York, NY">New York, NY</option>
+              <option value="New Jersey">New Jersey</option>
+              <option value="Arizona">Arizona</option>
+            </select>
             <label htmlFor="Pay" className="pt-4">
               How much are you willing to pay per hour ?
             </label>

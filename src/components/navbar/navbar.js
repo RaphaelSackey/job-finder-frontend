@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDropdownContext, useSearchbarContext } from "../../CustomHooks/navContext";
 import {
   faSearch,
   faCaretDown,
@@ -10,22 +11,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
-  const [dropDown, setDropdown] = useState({
-    jobType: {
-      isActive: false,
-      value: "",
-    },
-    location: {
-      isActive: false,
-      value: "",
-    },
-    pay: {
-      isActive: false,
-      value: "",
-    },
-  });
+  const [dropDown, setDropdown] = useDropdownContext()
 
-  const [searchBar, setSearchBar] = useState("");
+  const [searchBar, setSearchBar] = useSearchbarContext();
 
   function trackSearch(event) {
     const value = event.currentTarget.value;
@@ -168,14 +156,14 @@ function Navbar() {
             <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
-                  dropDown["jobType"].value !== "Designer"
+                  dropDown["jobType"].value !== "General"
                     ? "options-jobType"
                     : "options-jobType bg-customRenchGray"
                 }
-                data-value="Designer"
+                data-value="General"
                 onClick={dropdownOptionSelected}
               >
-                Designer
+                General
               </div>
               <div
                 className={
