@@ -110,11 +110,6 @@ export default function LoginSignup() {
     }
   }
 
-  async function DummyProtected(){
-    const data = await useAxios("/protected", { data: "some data" });
-    console.log(data)
-  }
-
   return (
     <div className="sign-in h-screen">
       <div className="signInSignup-navbar border-customRenchGray relative flex h-[10%] items-center justify-start border-b px-3 lg:px-6">
@@ -130,7 +125,7 @@ export default function LoginSignup() {
           <h1 className="text-customDark font-poppinsBold mb-3 text-2xl">
             {version === "logIn" ? "Log in" : "Sign up"}
           </h1>
-          <button className="bg-blue-300 w-fit" onClick={DummyProtected}>dummy</button>
+
           <form className="flex flex-col">
             {version === "signUp" && (
               <>

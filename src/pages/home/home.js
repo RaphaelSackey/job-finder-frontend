@@ -7,6 +7,7 @@ import {
 } from "../../CustomHooks/navContext";
 import moment from "moment/moment";
 import Loading from "../../components/loading/loading";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [dropdownData, dropdownFunction] = useDropdownContext();
@@ -15,6 +16,16 @@ export default function Home() {
   const [cards, setCards] = useState([])
   const [activeCard, setActiveCard] = useState([])
 
+  const navigate = useNavigate()
+
+  //im only doing this to reset the local storage to fix the bug from the apply job
+
+  useEffect(() => {
+    if (localStorage.getItem('jobId') && localStorage.getItem('jobInfo')){
+        localStorage.removeItem('jobId')
+        localStorage.removeItem('jobInfo')
+    }
+  },[])
 
 
   const navbarData = {
@@ -39,7 +50,7 @@ export default function Home() {
       const date = moment(info[7]).format("MMMM Do YYYY");
 
       return (
-        <Card key = {id} id = {id} location={location} title={title} pay={pay} type={type} date={date} onclick={manageActiveCard} active = {activeCard[0]}/>
+        <Card key = {id} id = {id} location={location} title={title} pay={pay} type={type} date={date} onclick={manageActiveCard} active = {activeCard[0]} NavbarFilter = {navbarData}/>
       )
       
     })
@@ -60,7 +71,7 @@ export default function Home() {
   
   useEffect(() => {
     setCards(generateCards())
-  },[cardData, activeCard])
+  },[cardData, activeCard, dropdownData, searchbarData])
 
   useEffect(()=>{
     if (activeCard.length === 0 && cardData.length > 0) {
@@ -68,12 +79,15 @@ export default function Home() {
     }
   },[cardData])
 
+  function handleApplyClick(event){
+    const jobId = event.target.id
+    navigate('/apply', { state: { jobId: jobId, jobInfo: activeCard }})
+  }
 
 
 
   return (
     <div className="container mx-auto min-h-screen">
-      <div>{JSON.stringify(navbarData)}</div>
       <div className="container relative mx-auto flex h-[100vh] max-h-[100vh] min-h-[100vh] w-full gap-28 overflow-scroll pt-6">
         <div className="job_wrapper border-customRenchGray flex h-[100%] min-h-[100%] w-[50%] justify-center overflow-scroll rounded-lg border pt-3">
           <div className="card-holder flex min-h-full w-[100%] flex-wrap justify-center px-2 xl:justify-between 2xl:w-[80%] 2xl:px-0">
@@ -98,6 +112,7 @@ export default function Home() {
                   <button
                     className="text-customWhite rounded-md bg-blue-300 px-4 py-2"
                     id={activeCard[0]}
+                    onClick={handleApplyClick}
                   >
                     Apply now
                   </button>

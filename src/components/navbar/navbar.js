@@ -98,9 +98,9 @@ function Navbar() {
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "underline" : undefined)}
-              to={"/about"}
+              to={"/profile"}
             >
-              About
+              Profile
             </NavLink>
           </li>
         </ul>
@@ -218,14 +218,14 @@ function Navbar() {
             <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
-                  dropDown["location"].value !== "New York"
+                  dropDown["location"].value !== "New York, NY"
                     ? "options-location"
                     : "options-location bg-customRenchGray"
                 }
-                data-value="New York"
+                data-value="New York, NY"
                 onClick={dropdownOptionSelected}
               >
-                New York
+                New York, NY
               </div>
               <div
                 className={
@@ -263,7 +263,7 @@ function Navbar() {
               />
             </div>
             <span className="block grow">
-              {dropDown.pay.value === "" ? "Pay" : dropDown.pay.value}
+              {dropDown.pay.value === "" ? "Pay /hr" : `$ ${dropDown.pay.value}`}
             </span>
             {/* postfix icon */}
             <div
@@ -278,36 +278,36 @@ function Navbar() {
             <div className="dropdown-menu border-customDark text-customDark absolute top-16 z-10 h-fit w-full flex-col justify-center rounded-b-lg border-2 bg-white px-2 py-2 hover:cursor-pointer">
               <div
                 className={
-                  dropDown["pay"].value !== "$13-16/hr"
+                  dropDown["pay"].value !== "13-16"
                     ? "options-pay"
                     : "options-pay bg-customRenchGray"
                 }
-                data-value="$13-16/hr"
+                data-value="13-16"
                 onClick={dropdownOptionSelected}
               >
-                $13-16 /hr
+                $13-16 
               </div>
               <div
                 className={
-                  dropDown["pay"].value !== "$17-20/hr"
+                  dropDown["pay"].value !== "17-20"
                     ? "options-pay"
                     : "options-pay bg-customRenchGray"
                 }
-                data-value="$17-20/hr"
+                data-value="17-20"
                 onClick={dropdownOptionSelected}
               >
-                $17-20 /hr
+                $17-20 
               </div>
               <div
                 className={
-                  dropDown["pay"].value !== "$21+ /hr"
+                  dropDown["pay"].value !== "21+"
                     ? "options-pay"
                     : "options-pay bg-customRenchGray"
                 }
-                data-value="$21+ /hr"
+                data-value="21+"
                 onClick={dropdownOptionSelected}
               >
-                $21+ /hr
+                $21+ 
               </div>
             </div>
           )}

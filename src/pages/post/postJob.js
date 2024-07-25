@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function PostJobPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [jobForm, setJobForm] = useState({
     jobType: "General",
     jobName: "",
