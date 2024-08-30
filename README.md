@@ -1,6 +1,7 @@
 # Frontend README
 
-This project was bootstrapped with Create React App.
+This project was created with Create React App.
+It uses tailwind for styling.
 
 ## Overview
 
@@ -52,18 +53,3 @@ See the section about running tests for more information.
 
 Builds the app for production to the `build` folder.  
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.  
-Your app is ready to be deployed!
-
-See the section about deployment for more information.
-
-### `npm run eject`
-
-**Note:** This is a one-way operation. Once you eject, you can't go back!
-
-If you aren't satisfied with the build tool and configuration choices, you can eject at any time. This command will remove the single build dependency from your project.
-
----
-
-**Note:** This README is based on the actual content of the frontend folder and does not include any information that is not true or present in the folder.
