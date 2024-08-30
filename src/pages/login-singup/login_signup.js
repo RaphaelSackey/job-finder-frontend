@@ -1,11 +1,12 @@
 import React, { useState, useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Axios from "../../api/axios";
-import useAxios from "../../CustomHooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginSignup() {
+  const navigate = useNavigate();
   const [version, setVersion] = useState("logIn");
   const [formCredentials, dispatch] = useReducer(reducer, {
     logIn: {
@@ -80,6 +81,8 @@ export default function LoginSignup() {
       localStorage.setItem('access_token', results.data.access_token)
       localStorage.setItem('refresh_token', results.data.refresh_token)
       console.log(results);
+      navigate('/')
+
     } catch (e) {
       console.log(e);
     }
@@ -101,6 +104,8 @@ export default function LoginSignup() {
         const results = await axios.post("/SignUp", {
           ...formCredentials["signUp"],
         });
+        alert("Account created successfully");
+        toggleVersion();
         console.log(results);
       } catch (e) {
         console.log(e);
